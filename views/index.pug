@@ -1,26 +1,51 @@
 extends layout
 
 block content
-  h1 TODO List
-  form(action='/add', method='POST')
-    div
-      input.form-control(type='text', name='title', placeholder='Task Title', required)
-    div.mt-2
-      textarea.form-control(name='description', placeholder='Task Description')
-    button.btn.btn-primary.mt-2(type='submit') Add Task
+  h1.mb-4.text-center.text-primary TODO List
 
-    ui.list-group.mt-4
+  if errors
+    .alert.alert-danger
+      ul.mb-0
+        each error in errors
+          li= error
+
+  .card.shadow-sm.mb-4
+    .card-body
+      form(action="/add" method="POST")
+        .mb-3
+          label.form-label(for="title") Title
+          input.form-control(
+            type="text",
+            name="title",
+            id="title",
+            value=(formData && formData.title) || '',
+            required
+          )
+        .mb-3
+          label.form-label(for="description") Description
+          textarea.form-control(
+            name="description",
+            id="description",
+            rows="2",
+            required
+          )= (formData && formData.description) || ''
+        button.btn.btn-success(type="submit")  Add Task
+
+  if tasks.length
+    .row.row-cols-1.g-3
       each task in tasks
-        li.list-group-item.d-flex.justify-content-between.align-items-center
-        div
-          strong #{task.title}
-          | - #{task.description}
-          if(task.completed)
-            span.badge.bg-success.ms-2 Completed
-          else
-            span.badge.bg-warning Not Completed
-        div
-            form(action=`/toggle/${task._id}` method='POST' style='display:inline-block')
-                button.btn.btn-warning.btn-sm Toggle
-            form(action=`/delete/${task._id}` method='POST' style='display:inline-block')
-                button.btn.btn-danger.btn-sm Delete
+        .col
+          .card.shadow-sm(class=task.completed ? 'border-success' : 'border-secondary')
+            .card-body
+              h5.card-title
+                = task.title
+                if task.completed
+                  span.badge.bg-success.ms-2 Done
+              p.card-text= task.description
+              .d-flex.justify-content-end.gap-2
+                form(action=`/toggle/${task._id}` method="POST")
+                  button.btn.btn-outline-warning.btn-sm Toggle
+                form(action=`/delete/${task._id}` method="POST")
+                  button.btn.btn-outline-danger.btn-sm Delete
+  else
+    p.text-muted.text-center No tasks yet. Enjoy your productivity-free life ✨
