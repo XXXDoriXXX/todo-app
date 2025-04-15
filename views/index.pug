@@ -1,5 +1,51 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1.mb-4.text-center.text-primary TODO List
+
+  if errors
+    .alert.alert-danger
+      ul.mb-0
+        each error in errors
+          li= error
+
+  .card.shadow-sm.mb-4
+    .card-body
+      form(action="/add" method="POST")
+        .mb-3
+          label.form-label(for="title") Title
+          input.form-control(
+            type="text",
+            name="title",
+            id="title",
+            value=(formData && formData.title) || '',
+            required
+          )
+        .mb-3
+          label.form-label(for="description") Description
+          textarea.form-control(
+            name="description",
+            id="description",
+            rows="2",
+            required
+          )= (formData && formData.description) || ''
+        button.btn.btn-success(type="submit")  Add Task
+
+  if tasks.length
+    .row.row-cols-1.g-3
+      each task in tasks
+        .col
+          .card.shadow-sm(class=task.completed ? 'border-success' : 'border-secondary')
+            .card-body
+              h5.card-title
+                = task.title
+                if task.completed
+                  span.badge.bg-success.ms-2 Done
+              p.card-text= task.description
+              .d-flex.justify-content-end.gap-2
+                form(action=`/toggle/${task._id}` method="POST")
+                  button.btn.btn-outline-warning.btn-sm Toggle
+                form(action=`/delete/${task._id}` method="POST")
+                  button.btn.btn-outline-danger.btn-sm Delete
+  else
+    p.text-muted.text-center No tasks yet. Enjoy your productivity-free life ✨
