@@ -18,22 +18,26 @@ A clean and minimal TODO list web application built with **Express.js**, **Mongo
 ## 📦 Installation
 
 ### 1. Clone the repository
-
-git clone https://github.com/your-username/todo-app.git
+```bash
+git clone [https://github.com/your-username/todo-app.git](https://github.com/XXXDoriXXX/todo-app.git)
 cd todo-app
+```
 2. Install dependencies
-bash
 
+```bash
 npm install
-3. Set up MongoDB
+```
+
+4. Set up MongoDB
 Make sure you have MongoDB running locally at mongodb://localhost:27017/todo
 
 Or replace the connection string in app.js with your own MongoDB URI.
 
 4. Run the application
+```bash
 npm start
 Open your browser at http://localhost:3000
-
+```
 
 🤓 Author
 Made by [Vadym](https://github.com/XXXDoriXXX)
