@@ -33,7 +33,7 @@ Make sure you have MongoDB running locally at mongodb://localhost:27017/todo
 
 Or replace the connection string in app.js with your own MongoDB URI.
 
-4. Run the application
+5. Run the application
 ```bash
 npm start
 Open your browser at http://localhost:3000
