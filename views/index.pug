@@ -1,5 +1,26 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 TODO List
+  form(action='/add', method='POST')
+    div
+      input.form-control(type='text', name='title', placeholder='Task Title', required)
+    div.mt-2
+      textarea.form-control(name='description', placeholder='Task Description')
+    button.btn.btn-primary.mt-2(type='submit') Add Task
+
+    ui.list-group.mt-4
+      each task in tasks
+        li.list-group-item.d-flex.justify-content-between.align-items-center
+        div
+          strong #{task.title}
+          | - #{task.description}
+          if(task.completed)
+            span.badge.bg-success.ms-2 Completed
+          else
+            span.badge.bg-warning Not Completed
+        div
+            form(action=`/toggle/${task._id}` method='POST' style='display:inline-block')
+                button.btn.btn-warning.btn-sm Toggle
+            form(action=`/delete/${task._id}` method='POST' style='display:inline-block')
+                button.btn.btn-danger.btn-sm Delete
