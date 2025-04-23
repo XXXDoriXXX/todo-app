@@ -19,7 +19,8 @@ A clean and minimal TODO list web application built with **Express.js**, **Mongo
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/your-username/todo-app.git](https://github.com/XXXDoriXXX/todo-app.git)
+git clone https://github.com/XXXDoriXXX/todo-app.git
+
 cd todo-app
 ```
 2. Install dependencies
